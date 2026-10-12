@@ -9,13 +9,19 @@ This is a multi-course learning workspace designed for structured, stateful lear
 ```
 personal-courses/
 ├── courses/
-│   └── [course-subdirectories]       # Each course maintains its own .teach/ state
+│   └── [course-subdirectories]       # Each course holds its own teach workspace
 ├── .claude/
-│   └── settings.json                 # Project-scoped Claude settings
+│   ├── settings.json                 # Project-scoped Claude settings
+│   └── skills/teach/                 # Vendored /teach skill
 ├── CLAUDE.md                         # This file
 ├── README.md                         # Public project overview
 └── .gitignore                        # Git configuration
 ```
+
+## Teach Skill
+
+A copy of the `/teach` skill is vendored in `.claude/skills/teach/` so it works in
+cloud sessions (where the plugin below isn't installed). Invoke it with `/teach`.
 
 ## Installed Plugins
 
@@ -27,35 +33,27 @@ personal-courses/
 
 ## Course Workflow
 
-1. **Create a course directory**
-   ```bash
-   mkdir -p courses/my-course
-   cd courses/my-course
-   ```
-
-2. **Invoke the teach skill**
-   ```
-   /teach "Topic or concept to learn"
-   ```
-
-3. **Learning state persists**
-   - Each course maintains `.teach/` directory with learning state
-   - State persists across sessions and Claude restarts
-   - Pick up where you left off automatically
-
-4. **Multiple courses coexist**
-   - Each subdirectory is independent
-   - Switch between courses by changing directories
+1. **Create a course directory**: `mkdir -p courses/my-course`
+2. **Invoke the teach skill**: `/teach <topic>`. The skill resolves its workspace from
+   the current directory. In cloud sessions the working directory is the repo root, so
+   name the course, e.g. `/teach (workspace: courses/my-course) <topic>`, and treat that
+   directory as the teaching workspace.
+3. **Commit learning state**: cloud containers are ephemeral. Commit and push the
+   course directory at the end of each session or progress is lost.
 
 ## Teaching Workspace
 
-The `.teach/` directory (created automatically by the teach skill) contains:
-- Progress tracking
-- Session notes
-- Concept definitions
-- Learning artifacts
+The teach skill writes these files directly into the course directory (not into a
+hidden `.teach/` folder), and they are tracked in git:
 
-This directory is excluded from git via `.gitignore` to keep learning state local and session-specific.
+- `MISSION.md`: why you're learning the topic; grounds every lesson
+- `RESOURCES.md`: curated trusted sources and communities
+- `GLOSSARY.md`: canonical terminology
+- `NOTES.md`: teaching preferences and working notes
+- `lessons/*.html`: numbered, self-contained lessons
+- `reference/*.html`: cheat sheets and other quick-reference docs
+- `learning-records/*.md`: numbered records of what you've demonstrated you know
+- `assets/*`: shared stylesheets and components reused across lessons
 
 ## Conventions
 

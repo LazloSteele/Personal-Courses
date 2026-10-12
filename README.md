@@ -24,13 +24,13 @@ personal-courses/
    cd courses/my-course
    /teach <topic or concept>
    ```
-3. The teach skill creates a stateful workspace in `.teach/` that persists across sessions
+3. The teach skill writes its state (`MISSION.md`, `lessons/`, `learning-records/`, etc.) into the course directory. Commit it to keep progress across sessions
 
 ## Using the Teach Skill
 
 The `/teach` skill from Matt Pocock's skills plugin creates a multi-session learning environment:
 
-- **Stateful learning**: Your progress and notes persist in `.teach/` files
+- **Stateful learning**: Your progress and notes persist in files in the course directory
 - **Workspace-scoped**: Each course directory maintains its own learning state
 - **Session-aware**: Pick up where you left off in future sessions
 
