@@ -27,5 +27,5 @@
 
 ## Publishing
 - Lessons link `../assets/*` for local use. For the Claude app, build a self-contained copy in the
-- Lesson 0001 artifact: https://claude.ai/artifact/1mVNxq2Ytzx6p7p6FfujQK
   scratchpad (assets inlined) and publish it as an Artifact.
+- Lesson 0001 artifact: https://claude.ai/artifact/1mVNxq2Ytzx6p7p6FfujQK
