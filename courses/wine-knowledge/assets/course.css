@@ -1,0 +1,157 @@
+/* Wine Knowledge course stylesheet. Shared by every lesson and reference doc.
+   Layout: a single Tufte-style reading column (~65ch) with margin notes that
+   fold inline on narrow screens. Claret is the only accent, used sparingly. */
+:root {
+  --paper: #fbfafa;      /* page ground: barely rose-tinted white, like a white tasting mat */
+  --ink: #1f1a1c;        /* body text */
+  --muted: #6a5f63;      /* captions, notes, labels */
+  --rule: #e4dcdf;       /* hairlines and table rules */
+  --wash: #f3eef0;       /* quiet fill for callouts and the tasting grid */
+  --claret: #7a1f3d;     /* accent: links, headings marks, selected states */
+  --straw: #9a7414;      /* secondary: white-wine notes, "watch out" marks */
+  --good: #2f6b3a;
+  --bad: #a3322b;
+
+  --display: "Cormorant Garamond", "Cormorant", Garamond, "Times New Roman", serif;
+  --body: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+  --utility: "IBM Plex Sans Condensed", "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.3rem;
+  --step-2: 1.75rem;
+  --step-3: 2.6rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #171315; --ink: #ece4e7; --muted: #a8999f; --rule: #3a2f33; --wash: #221b1e;
+    --claret: #e07a98; --straw: #d9b14e; --good: #7fc28a; --bad: #ef8a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #171315; --ink: #ece4e7; --muted: #a8999f; --rule: #3a2f33; --wash: #221b1e;
+  --claret: #e07a98; --straw: #d9b14e; --good: #7fc28a; --bad: #ef8a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  padding-inline: 16px;
+  padding-block: 2.5rem 4rem;
+}
+.page { max-width: 44rem; margin-inline: auto; display: grid; gap: 2.25rem; position: relative; }
+.page > * { min-width: 0; }
+
+/* Header */
+.eyebrow {
+  font-family: var(--utility); font-size: var(--step--1); letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); margin: 0;
+}
+h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: var(--step-3); letter-spacing: -0.01em; }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); }
+h1 em, h2 em { color: var(--claret); }
+.lede { font-size: var(--step-1); line-height: 1.45; color: var(--ink); margin: 0; font-style: italic; }
+header.lesson-head { display: grid; gap: 0.75rem; border-bottom: 1px solid var(--rule); padding-bottom: 1.5rem; }
+
+section { display: grid; gap: 1rem; }
+p { margin: 0; }
+a { color: var(--claret); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:focus-visible, button:focus-visible, input:focus-visible + label { outline: 2px solid var(--claret); outline-offset: 2px; }
+strong { font-weight: 600; }
+ul, ol { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.35rem; }
+sup.cite a { font-family: var(--utility); font-size: 0.7em; text-decoration: none; padding-left: 1px; }
+
+/* Margin notes: inline callouts on narrow screens, true margin on wide ones */
+.note {
+  font-size: var(--step--1); color: var(--muted); line-height: 1.5;
+  border-left: 2px solid var(--rule); padding-left: 0.75rem;
+}
+/* Wrap a paragraph and its note in .with-note so the note aligns with it */
+.with-note { position: relative; display: grid; gap: 0.75rem; }
+@media (min-width: 80rem) {
+  .with-note .note { position: absolute; top: 0.2rem; right: -17rem; width: 14rem; border-left: 0; padding-left: 0; }
+}
+
+/* Callout used for "the win", traps and mission ties */
+.callout { background: var(--wash); padding: 1rem 1.25rem; display: grid; gap: 0.5rem; border-radius: 2px; }
+.callout .label { font-family: var(--utility); font-size: var(--step--1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--claret); }
+.callout.warn .label { color: var(--straw); }
+
+/* Tables (scroll inside their own box on narrow screens) */
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: var(--step--1); line-height: 1.45; min-width: 36rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem 0.6rem 0; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--utility); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); font-size: 0.75rem; }
+td:first-child { font-family: var(--display); font-size: 1.2rem; font-weight: 600; color: var(--claret); white-space: nowrap; }
+
+/* SAT scale: the official scale words drawn as a segmented bar */
+.scale { display: flex; flex-wrap: wrap; gap: 3px; font-family: var(--utility); font-size: 0.75rem; }
+.scale span { flex: 1 1 0; min-width: max-content; text-align: center; padding: 0.2rem 0.4rem; background: var(--wash); color: var(--ink); white-space: nowrap; }
+
+/* Footer blocks */
+.source-card { border-top: 2px solid var(--claret); padding-top: 1rem; display: grid; gap: 0.5rem; }
+.sources { font-size: var(--step--1); color: var(--muted); }
+.sources ol { gap: 0.25rem; }
+nav.course-nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-family: var(--utility); font-size: var(--step--1); border-top: 1px solid var(--rule); padding-top: 1rem; }
+
+/* Quiz component (assets/quiz.js) */
+.quiz { display: grid; gap: 1.75rem; counter-reset: q; }
+.q { display: grid; gap: 0.6rem; }
+.q .stem { font-weight: 600; }
+.q .stem::before { counter-increment: q; content: counter(q) ". "; color: var(--claret); font-family: var(--display); font-size: 1.2em; }
+.q .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.5rem; }
+.q button {
+  font: inherit; font-size: var(--step--1); text-align: left; cursor: pointer;
+  background: var(--paper); color: var(--ink); border: 1px solid var(--rule); border-radius: 2px;
+  padding: 0.6rem 0.8rem;
+}
+.q button:hover:not(:disabled) { border-color: var(--claret); }
+.q button:disabled { cursor: default; }
+.q button.is-right { border-color: var(--good); color: var(--good); font-weight: 600; }
+.q button.is-wrong { border-color: var(--bad); color: var(--bad); text-decoration: line-through; }
+.q .why { font-size: var(--step--1); color: var(--muted); border-left: 2px solid var(--rule); padding-left: 0.75rem; }
+.quiz-score { font-family: var(--utility); font-size: var(--step--1); color: var(--muted); }
+.quiz-reset { justify-self: start; font: inherit; font-family: var(--utility); font-size: var(--step--1); background: none; border: 0; color: var(--claret); cursor: pointer; text-decoration: underline; padding: 0; }
+
+/* Tasting grid component (assets/tasting-grid.js) */
+.tgrid { display: grid; gap: 1.25rem; }
+.tsample { background: var(--wash); padding: 1rem; display: grid; gap: 0.75rem; border-radius: 2px; }
+.tsample h4 { font-family: var(--display); font-size: 1.25rem; margin: 0; font-weight: 600; }
+.tsample .add { font-family: var(--utility); font-size: var(--step--1); color: var(--muted); }
+.trow { display: grid; grid-template-columns: 6.5rem 1fr; align-items: center; gap: 0.5rem; }
+.trow .dial { font-family: var(--utility); font-size: var(--step--1); }
+.tchoices { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.tchoices input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.tchoices label {
+  font-family: var(--utility); font-size: 0.8rem; padding: 0.25rem 0.6rem; cursor: pointer;
+  border: 1px solid var(--rule); background: var(--paper); border-radius: 2px;
+}
+.tchoices input:checked + label { border-color: var(--claret); color: var(--claret); font-weight: 600; }
+.trow.ok .dial::after { content: " ✓"; color: var(--good); }
+.trow.off .dial::after { content: " ✗"; color: var(--bad); }
+.tsample button.check {
+  justify-self: start; font: inherit; font-family: var(--utility); font-size: var(--step--1);
+  background: var(--claret); color: var(--paper); border: 0; padding: 0.45rem 0.9rem; cursor: pointer; border-radius: 2px;
+}
+.tfeedback { font-size: var(--step--1); color: var(--ink); }
+
+/* Reference docs: denser, built to print */
+.ref .page { max-width: 52rem; gap: 1.5rem; }
+@media print {
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  .note { position: static; width: auto; }
+  nav.course-nav, .quiz-reset { display: none; }
+  a { color: inherit; }
+  .scale span, .callout, .tsample { background: #f2f2f2; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
